@@ -13,18 +13,37 @@ var ballRadius = 5;
 
 
 //paddle
-var paddleHeight = 5;
-var paddleWidth = 60;
+var paddleHeight = 7;
+var paddleWidth = 50;
 var paddleX = (canvas.width-paddleWidth) / 2;
 
 //arrow keys
 var rightPressed = false;
 var leftPressed = false;
 
+//bricks 
+var brickRowCount = 3;
+var brickColumnCount = 5;
+var brickWidth = 40;
+var brickHeight = 10;
+var brickPadding = 10;
+var brickOffsetTop = 15;
+var brickOffsetLeft = 30;
+
+var bricks = [];
+for (var c = 0; c < brickColumnCount; c++) {
+  bricks[c] = [];
+  for(var r = 0;r < brickRowCount; r++) {
+    bricks[c][r] = {x : 0, y : 0};
+  }
+}
+
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawBricks();
   drawBall();
   drawPaddle();
+ 
 
   x += dx;
   y += dy;
@@ -49,7 +68,6 @@ function draw() {
   } else if (leftPressed && paddleX > 0) {
     paddleX -= 7;
   }
-
 }
 
 function drawPaddle() {
@@ -68,6 +86,23 @@ function drawBall() {
   ctx.closePath();
 }
 
+function drawBricks() {
+  for(var c = 0; c < brickColumnCount; c++) {
+    for(var r = 0; r < brickRowCount; r++) {
+      var brickX = (c * (brickWidth + brickHeight)) + brickOffsetLeft;
+      var brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;
+      bricks[c][r].x = brickX;
+      bricks[c][r].y = brickY;
+      ctx.beginPath();
+      ctx.rect(brickX, brickY, brickWidth, brickHeight);
+      ctx.fillStyle = "teal";
+      ctx.fill();
+      ctx.closePath();
+    }
+  }
+}
+
+
 function keyDownHandler(e) {
   if (e.keyCode == 39) {
     rightPressed = true;
@@ -83,9 +118,6 @@ function keyUpHandler(e) {
     leftPressed = false;
   }
 }
-
-
-
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
