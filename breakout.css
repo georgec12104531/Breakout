@@ -5,6 +5,8 @@
   
 canvas {
     background: grey;
+    background-image: url(http://invisiblelightnetwork.com/wp-content/uploads/2014/10/LH_SH02.jpg);
+    background-size: cover;
     display: block;
     margin: 0 auto;
   }

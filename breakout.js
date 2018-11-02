@@ -24,7 +24,18 @@ let brickPadding = 10;
 let brickOffsetTop = 30;
 let brickOffsetLeft = 30;
 
+//score
 let score = 0;
+
+//lives
+var lives = 3;
+
+function drawLives() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText("Lives: "+lives, canvas.width-65, 20);
+
+}
 
 let bricks = [];
 for (let c = 0; c < brickColumnCount; c++) {
@@ -83,7 +94,7 @@ function collisionDetection() {
 
 function drawScore() {
   ctx.font = "16px Arial";
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "white";
   ctx.fillText("Score: " + score, 8, 20);
 }
 
@@ -112,7 +123,7 @@ function drawBricks() {
         bricks[c][r].y = brickY;
         ctx.beginPath();
         ctx.rect(brickX, brickY, brickWidth, brickHeight);
-        ctx.fillStyle = "#0095DD";
+        ctx.fillStyle = "teal";
         ctx.fill();
         ctx.closePath();
       }
@@ -126,6 +137,7 @@ function draw() {
   drawBall();
   drawPaddle();
   drawScore();
+  drawLives();
   collisionDetection();
   
 
@@ -142,7 +154,17 @@ function draw() {
       }
     }
     else {
-      document.location.reload();    
+      lives--;
+      if(!lives) {
+        alert("Game Over");
+        document.location.reload();     
+      } else {
+        x = canvas.width/2;
+        y = canvas.height-30;
+        dx = 3;
+        dy = -3;
+        paddleX = (canvas.width-paddleWidth)/2;
+      }   
     }
   }
 
@@ -155,6 +177,18 @@ function draw() {
 
   x += dx;
   y += dy;
+
+  // lives--;
+  // if (!lives) {
+  //   alert("Game Over");
+  //   document.location.reload();
+  // } else {
+  //   x = canvas.width/2;
+  //   y = canvas.height-30;
+  //   dx = 2;
+  //   dy = -2;
+  //   paddleX = (canvas.width - paddleWidth) / 2;
+  // }
 }
 
 setInterval(draw, 10);
