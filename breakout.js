@@ -6,8 +6,8 @@ let y = canvas.height - 30;
 let dx = 2;
 let dy = -2;
 
-//paddle
-let paddleHeight = 10;
+//  paddle
+const paddleHeight = 10;
 let paddleWidth = 75;
 let paddleX = (canvas.width - paddleWidth) / 2;
 
@@ -23,6 +23,8 @@ let brickHeight = 20;
 let brickPadding = 10;
 let brickOffsetTop = 30;
 let brickOffsetLeft = 30;
+
+
 
 //score
 let score = 0;
